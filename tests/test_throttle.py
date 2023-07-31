@@ -2,13 +2,13 @@ import pytest
 
 
 @pytest.mark.parametrize(
-    "rest_framework_key, default_class",
+    "default_class",
     [
-        ('DEFAULT_THROTTLE_CLASSES', 'rest_framework.throttling.UserRateThrottle'),
-        ('DEFAULT_THROTTLE_CLASSES', 'rest_framework.throttling.AnonRateThrottle')
+        'rest_framework.throttling.UserRateThrottle',
+        'rest_framework.throttling.AnonRateThrottle',
     ]
 )
-def test_rest_framework_throttle_classes(settings, rest_framework_key, default_class):
+def test_rest_framework_throttle_classes(settings, default_class):
     setting_name = "REST_FRAMEWORK"
     rest_framework_setting = getattr(settings, setting_name, None)
     assert rest_framework_setting is not None, (
@@ -16,6 +16,7 @@ def test_rest_framework_throttle_classes(settings, rest_framework_key, default_c
         f"добавлена настройка `{setting_name}`"
     )
 
+    rest_framework_key = 'DEFAULT_THROTTLE_CLASSES'
     assert rest_framework_key in rest_framework_setting, (
         f"Проверьте, что в файле `ya_tube/settings.py` c настройками проекта в `{setting_name}` "
         f"добавлен ключ `{rest_framework_key}`"
